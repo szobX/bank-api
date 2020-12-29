@@ -60,3 +60,19 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+###ROUTING
+------------
+##### ACCOUNT
+
+| Routes | 	controller | method   |
+| ------------- | ------------------------------ |
+| `/accounts`      | Display all accounts    | `GET` |
+| `/accounts`   | Add account     |`POST`|
+| `/accounts`   | Edit account     |`PUT`|
+| `/accounts`   | Delete account     |`DELETE`|
+| `/accounts/{account_id}`   | Display account     |`GET`|
+| `/accounts/{account_id}/creditCards`   | Display cards for account     |`GET`|
+| `/accounts/{account_id}/creditCards`   | Add cards for account     |`POST`|
+| `/accounts/{account_id}/creditCards/{card_id}`   | Edit card for account     |`PUT`|
+

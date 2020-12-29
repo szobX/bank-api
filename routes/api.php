@@ -19,7 +19,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('banks', \App\Http\Controllers\BankController::class);
-
+Route::apiResource('creditCards',\App\http\Controllers\CreditCardController::class);
 Route::apiResource('accounts', \App\Http\Controllers\AccountController::class);
 
-Route::apiResource('accounts/{account_id}/creditCards', CreditCardController::class);
+Route::post('accounts/{account_id}/creditCards', [\App\Http\Controllers\CreditCardController::class, 'store']);
+Route::get('accounts/{account_id}/creditCards', [\App\Http\Controllers\CreditCardController::class, 'showAll']);
+Route::get('accounts/{account_id}/creditCards/{card_id}', [\App\Http\Controllers\CreditCardController::class, 'show']);
