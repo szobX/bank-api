@@ -17,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::apiResource('banks', \App\Http\Controllers\BankController::class);
+
+Route::apiResource('accounts', \App\Http\Controllers\AccountController::class);
+
+Route::apiResource('accounts/{account_id}/creditCards', CreditCardController::class);

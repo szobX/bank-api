@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AccountResource;
 use App\Models\Account;
+use App\Models\CreditCard;
 use Illuminate\Http\Request;
 
 class AccountController extends Controller
@@ -14,17 +16,30 @@ class AccountController extends Controller
      */
     public function index()
     {
-        //
+        $accounts = Account::all();
+        return response(['data'=>AccountResource::collection($accounts),'message'=>'Retrieved successfully'],200);
+//        return response()->json([
+//            "success"=>true,
+//            "message"=>"Account list",
+//            "data"=>$accounts
+//        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function create()
     {
         //
+//        $input = $request->all();
+//        $account = Account::create($input);
+//        return response()->json([
+//            "success"=>true,
+//            "message"=>"Account created",
+//            "data"=>$account
+//        ]);
     }
 
     /**
@@ -46,7 +61,17 @@ class AccountController extends Controller
      */
     public function show(Account $account)
     {
-        //
+//        $account = Account::find($id);
+
+        return response(['data'=> new AccountResource($account),'message'=>'account finded','bank'=>$account->bank,'creditCards'=>$account->creditCards],200);
+
+//            return response()->json([
+//                "success"=>true,
+//                "message"=>"Account finded",
+//                "data"=>$account,
+//                "creditCards"=>$account->creditCards,
+//                "bank"=>$account->bank
+//            ]);
     }
 
     /**

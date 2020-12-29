@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bank extends Model
 {
+
+    protected $fillable=['name','identify'];
     use HasFactory;
     public function account(){
         return $this->hasMany(Account::class);

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BankResource;
 use App\Models\Bank;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class BankController extends Controller
 {
@@ -15,17 +17,10 @@ class BankController extends Controller
     public function index()
     {
         //
+        $banks = Bank::all();
+            return response(['data'=>BankResource::collection($banks)],200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -35,8 +30,22 @@ class BankController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+            'name' => 'required|max:40',
+            'identify' => 'required|max:255|size:4|unique:banks',
+        ]);
+
+        if ($validator->fails()) {
+            return response(['error' => $validator->errors(), 'Validation Error']);
+        }
+
+        $bank = Bank::create($data);
+
+        return response(['project' => new BankResource($bank), 'message' => 'Created successfully'], 201);
     }
+
 
     /**
      * Display the specified resource.
@@ -47,18 +56,10 @@ class BankController extends Controller
     public function show(Bank $bank)
     {
         //
+        return response(['data'=> new BankResource($bank),'message'=>'bank finded',],200);
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Bank  $bank
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Bank $bank)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -70,6 +71,10 @@ class BankController extends Controller
     public function update(Request $request, Bank $bank)
     {
         //
+        $bank->update($request->all());
+
+        return response(['project' => new BankResource($bank), 'message' => 'Update successfully'], 200);
+
     }
 
     /**
