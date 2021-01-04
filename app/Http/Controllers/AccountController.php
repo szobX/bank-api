@@ -50,7 +50,21 @@ class AccountController extends Controller
      */
     public function store(Request $request)
     {
-        //
+            $data = $request->all();
+            $account = new Account();
+$accountNumber = $account->generateNumber($data['bank_id']);
+            $accountObject = [
+                'account_number'=>$accountNumber
+            ];
+
+        //  'account_name'=>$this->faker->numerify('konto ##'),
+        //            'account_number'=>$this->faker->numerify("$bankIdentify-####-####-####-###-#"),
+        //            'user_id'=>\App\Models\User::all()->random()->id,
+        //            'bank_id'=>$bank->id,
+        //            'date_opened'=>$this->faker->dateTime,
+        //            'balance'=>$this->faker->randomFloat(2,0,99999)
+
+
     }
 
     /**

@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\Model;
 class Account extends Model
 {
     use HasFactory;
+
+
+    protected $fillable = ['account_number','user_id','bank_id','date_opened','balance'];
     public  function  bank()
     {
         return $this->belongsTo(Bank::class);
@@ -22,4 +25,23 @@ class Account extends Model
     public function user(){
         return $this->hasMany(User::class);
     }
+
+    public  function generateNumber($id){
+        $fill = '####-####-####-###-#';
+
+//        $bankIdentify-####-####-####-###-#
+           $bankIdentify =  Bank::find($id)->identify;
+        $sequence = $bankIdentify.'-';
+        for ($i = 0; $i < strlen($fill); ++$i) {
+            if($fill[$i]==='#'){
+                $sequence .= mt_rand(0, 9);
+            }else{
+                $sequence .='-';
+            }
+        }
+        return $sequence;
+
+    }
 }
+
+
