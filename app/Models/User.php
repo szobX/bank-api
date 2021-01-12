@@ -18,14 +18,14 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
         'email',
         'password',
         'first_name',
         'last_name',
         'sex',
         'phone',
-        'address_id',
+        'birthday',
+        'address_id'
     ];
 
     /**
@@ -46,4 +46,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function address(){
+        return $this->belongsTo(Address::class);
+    }
 }

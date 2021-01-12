@@ -6,6 +6,8 @@ use App\Http\Resources\AccountResource;
 use App\Models\Account;
 use App\Models\CreditCard;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class AccountController extends Controller
 {
@@ -51,19 +53,29 @@ class AccountController extends Controller
     public function store(Request $request)
     {
             $data = $request->all();
+        $validator = Validator::make($data, [
+            'bank_id' => 'required',
+            'account_name'=>'required|max:100',
+        ]);
+
+
+        if ($validator->fails()) {
+            return response(['error' => $validator->errors(), 'Validation Error']);
+        }
+//        dd($data);
             $account = new Account();
-$accountNumber = $account->generateNumber($data['bank_id']);
+
+            $accountNumber = $account->generateNumber($data['bank_id']);
             $accountObject = [
-                'account_number'=>$accountNumber
+                'account_name'=>$data['account_name'],
+                'account_number'=>$accountNumber,
+                'user_id'=>Auth::user()->id,
+                'bank_id'=>$data['bank_id'],
             ];
 
-        //  'account_name'=>$this->faker->numerify('konto ##'),
-        //            'account_number'=>$this->faker->numerify("$bankIdentify-####-####-####-###-#"),
-        //            'user_id'=>\App\Models\User::all()->random()->id,
-        //            'bank_id'=>$bank->id,
-        //            'date_opened'=>$this->faker->dateTime,
-        //            'balance'=>$this->faker->randomFloat(2,0,99999)
-
+//            dd($accountObject);
+        $newAcc =Account::create($accountObject);
+        return response(new AccountResource($newAcc),200);
 
     }
 
@@ -75,29 +87,25 @@ $accountNumber = $account->generateNumber($data['bank_id']);
      */
     public function show(Account $account)
     {
-//        $account = Account::find($id);
+        $user = Auth::user()->id;
 
-        return response(['data'=> new AccountResource($account),'message'=>'account finded','bank'=>$account->bank,'creditCards'=>$account->creditCards],200);
+        if($user != $account->user_id){
+            return response(['error'=>'unautorization'],401);
+        }else{
+            return response(new AccountResource($account),200);
+        }
+        // alternative method
+//        if (() !== null) {
+//            // Here you have your authenticated user model
+//
+//        }
 
-//            return response()->json([
-//                "success"=>true,
-//                "message"=>"Account finded",
-//                "data"=>$account,
-//                "creditCards"=>$account->creditCards,
-//                "bank"=>$account->bank
-//            ]);
+        // return general data
+//        return response('Unauthenticated user');
+
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Account  $account
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Account $account)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.

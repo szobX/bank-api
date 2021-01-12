@@ -25,7 +25,19 @@ class Account extends Model
     public function user(){
         return $this->hasMany(User::class);
     }
+    public function setCurrentBalance($id,$amount,$type){
+        $account = Account::find($id);
+        $currentBalance = 0;
+        if($type === 1){
+            $currentBalance = floatval($account->balance) - floatval($amount);
+        }else{
+            $currentBalance = floatval($account->balance) + floatval($amount);
+        }
 
+        $account->balance = $currentBalance;
+        $account->save();
+        return $currentBalance;
+    }
     public  function generateNumber($id){
         $fill = '####-####-####-###-#';
 

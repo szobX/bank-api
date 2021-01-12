@@ -2,18 +2,48 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AccountResource;
 use App\Http\Resources\UserResource;
+use App\Models\Account;
+use App\Models\Address;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
-class RegisterController extends Controller
+class UserController extends Controller
 {
-    public function register(Request $request)
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
+        $users = User::all();
+        return response(['data'=>UserResource::collection($users),'message'=>'Retrieved successfully'],200);
+    }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
         $aController = new AddressController();
         $data = $request->all();
         $validator = Validator::make($data, [
@@ -52,51 +82,62 @@ class RegisterController extends Controller
         $address = $aController->saveAddressFromUser($addressFromRequest);
         $data['hash_password'] = Hash::make($data['password']);
 //        dd($address->id);
-
         $userObject = [
             'email'=>$data['email'],
             'password'=>$data['hash_password'],
+            'first_name'=>$data['first_name'],
+            'last_name'=>$data['last_name'],
             'phone'=>$data['phone'],
             'birthday'=>$data['birthday'],
             'sex'=>$data['sex'],
-            'first_name'=>$data['first_name'],
-            'last_name'=>$data['last_name'],
             'address_id'=>$address->id];
+        $newUser =User::create($userObject);
 
-        $validatedData['password'] = Hash::make($request->password);
-
-        $user = User::create($userObject);
-        dd($user->address_id);
-        $accessToken = $user->createToken('authToken')->accessToken;
-
-        return response(['user' => new UserResource($user), 'access_token' => $accessToken], 201);
-
+        return $newUser;
     }
-
 
     /**
-     * Login api
+     * Display the specified resource.
      *
+     * @param  \App\Models\Address  $user
      * @return \Illuminate\Http\Response
      */
-    public function login(Request $request)
+    public function show(User $user)
     {
-        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
-            $user = Auth::user();
-            $token =  $user->createToken('bankApi')-> accessToken;
-            return response(['access_token' => $token, 'message' => 'User has been logged'], 200);
-        }
-        else{
-            return response(['error' =>  'Unauthorised Error'],400);
-        }
+        //
     }
 
-
-    public function logout (Request $request) {
-        $token = $request->user()->token();
-        $token->revoke();
-        $response = ['message' => 'You have been successfully logged out!'];
-        return response($response, 200);
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(User $user)
+    {
+        //
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, User $user)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(User $user)
+    {
+        //
+    }
 }

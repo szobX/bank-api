@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Address;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AddressController extends Controller
 {
@@ -26,7 +27,16 @@ class AddressController extends Controller
     {
         //
     }
+public function  validator($obj){
 
+    $addressValidator = Validator::make($obj,[
+        'city'=>'required',
+        'post_code'=>'required',
+        'street_and_number'=>'required',
+        'country'=>'required'
+    ]);
+        return $addressValidator;
+}
     /**
      * Store a newly created resource in storage.
      *
@@ -37,7 +47,12 @@ class AddressController extends Controller
     {
         //
     }
+    public  function saveAddressFromUser($obj){
+        $address = $obj;
+        $newAddress = Address::create($address);
 
+            return $newAddress;
+        }
     /**
      * Display the specified resource.
      *

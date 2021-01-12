@@ -15,12 +15,13 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
+            $table->boolean('transfer_type');  //  0 - incoming 1 -> outgoing
             $table->timestamp('date')->useCurrent();
             $table->integer('from_account_id')->unsigned()->index();
-            $table->decimal('ammount',9,2);
+            $table->decimal('amount',9,2);
             $table->decimal('current_balance');
             $table->string('title');
+            $table->dateTime('transfer_date');
             $table->integer('to_account_id')->unsigned()->index();
             $table->foreign('from_account_id')->references('id')->on('accounts')->onDelete('cascade');
             $table->foreign('to_account_id')->references('id')->on('accounts')->onDelete('cascade');
