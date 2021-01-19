@@ -19,7 +19,7 @@ class AccountController extends Controller
     public function index()
     {
         $accounts = Account::all();
-        return response(['data'=>AccountResource::collection($accounts),'message'=>'Retrieved successfully'],200);
+        return response(['data'=>AccountResource::collection($accounts)],200);
 //        return response()->json([
 //            "success"=>true,
 //            "message"=>"Account list",

@@ -23,7 +23,7 @@ class TransactionController extends Controller
     {
         //
         $transactions = Transactions::all();
-        return response(['data'=>Transactions::collection($transactions)],200);
+        return response(['data'=>TransactionsResources::collection($transactions)],200);
     }
 
 

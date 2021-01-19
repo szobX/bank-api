@@ -108,6 +108,18 @@ class UserController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Address  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function me()
+    {
+        $users = Auth::user();
+        return response(new UserResource($users));
+
+    }
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\User  $user

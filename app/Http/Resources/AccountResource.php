@@ -20,8 +20,9 @@ class AccountResource extends JsonResource
             'user_id'=>$this->user_id,
             'bank'=>$this->bank,
             'credit_cards'=>$this->creditCards,
-            'message'=>'account finded',
-            'balance'=>$this->balance
+
+            'balance'=>$this->balance,
+            'currency'=>'zł',
         ];
     }
 }
