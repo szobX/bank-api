@@ -73,7 +73,7 @@ class BankController extends Controller
         //
         $bank->update($request->all());
 
-        return response(['project' => new BankResource($bank), 'message' => 'Update successfully'], 200);
+        return response(['bank' => new BankResource($bank), 'message' => 'Update successfully'], 200);
 
     }
 
@@ -86,5 +86,8 @@ class BankController extends Controller
     public function destroy(Bank $bank)
     {
         //
+        $bank->delete();
+        return response(['message' => 'Bank deleted']);
+
     }
 }

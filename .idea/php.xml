@@ -121,6 +121,8 @@
       <path value="$PROJECT_DIR$/vendor/firebase/php-jwt" />
       <path value="$PROJECT_DIR$/vendor/league/oauth2-server" />
       <path value="$PROJECT_DIR$/vendor/laravel/passport" />
+      <path value="$PROJECT_DIR$/vendor/mehradsadeghi/laravel-filter-querystring" />
+      <path value="$PROJECT_DIR$/vendor/spatie/laravel-query-builder" />
     </include_path>
   </component>
   <component name="PhpUnit">

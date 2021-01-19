@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3759716d4b077902d27ca8d7fb925f55",
+    "content-hash": "4448e683e1309d7f0ea592a44aeadf7c",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1855,6 +1855,63 @@
             "time": "2020-12-10T11:35:44+00:00"
         },
         {
+            "name": "mehradsadeghi/laravel-filter-querystring",
+            "version": "v1.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mehradsadeghi/laravel-filter-querystring.git",
+                "reference": "9313080ff2561905e59bc8970b6abc14d76e5272"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mehradsadeghi/laravel-filter-querystring/zipball/9313080ff2561905e59bc8970b6abc14d76e5272",
+                "reference": "9313080ff2561905e59bc8970b6abc14d76e5272",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "5.*|6.*|7.*|8.*",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "helpers/helpers.php"
+                ],
+                "psr-4": {
+                    "Mehradsadeghi\\FilterQueryString\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mehrad Sadeghi",
+                    "email": "mehrad177@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Filter your queries based on url query string parameters like a breeze.",
+            "homepage": "https://github.com/mehradsadeghi/laravel-filter-querystring",
+            "keywords": [
+                "filter",
+                "filter-query-string",
+                "filter-querystring",
+                "query",
+                "query-string",
+                "querystring"
+            ],
+            "support": {
+                "issues": "https://github.com/mehradsadeghi/laravel-filter-querystring/issues",
+                "source": "https://github.com/mehradsadeghi/laravel-filter-querystring/tree/v1.1.4"
+            },
+            "time": "2020-12-29T17:11:53+00:00"
+        },
+        {
             "name": "monolog/monolog",
             "version": "2.2.0",
             "source": {
@@ -3171,6 +3228,76 @@
                 }
             ],
             "time": "2020-08-18T17:17:46+00:00"
+        },
+        {
+            "name": "spatie/laravel-query-builder",
+            "version": "3.3.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-query-builder.git",
+                "reference": "2e131b0c8ae600b6e3aabb5a1501c721862a0b8f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-query-builder/zipball/2e131b0c8ae600b6e3aabb5a1501c721862a0b8f",
+                "reference": "2e131b0c8ae600b6e3aabb5a1501c721862a0b8f",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^6.0|^7.0|^8.0",
+                "illuminate/http": "^6.0|^7.0|^8.0",
+                "illuminate/support": "^6.0|^7.0|^8.0",
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "ext-json": "*",
+                "laravel/legacy-factories": "^1.0.4",
+                "mockery/mockery": "^1.4",
+                "orchestra/testbench": "^4.9|^5.8|^6.3",
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\QueryBuilder\\QueryBuilderServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\QueryBuilder\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alex Vanderbist",
+                    "email": "alex@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Easily build Eloquent queries from API requests",
+            "homepage": "https://github.com/spatie/laravel-query-builder",
+            "keywords": [
+                "laravel-query-builder",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-query-builder/issues",
+                "source": "https://github.com/spatie/laravel-query-builder"
+            },
+            "funding": [
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "custom"
+                }
+            ],
+            "time": "2020-11-26T14:51:30+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

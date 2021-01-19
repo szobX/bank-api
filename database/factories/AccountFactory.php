@@ -29,7 +29,7 @@ class AccountFactory extends Factory
             'user_id'=>\App\Models\User::all()->random()->id,
             'bank_id'=>$bank->id,
             'date_opened'=>$this->faker->dateTime,
-            'balance'=>$this->faker->randomFloat(2,0,99999)
+            'balance'=>$this->faker->randomFloat(2,0,99999),
         ];
     }
 }

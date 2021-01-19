@@ -21,7 +21,9 @@ class Account extends Model
     public function creditCards ( ){
         return $this->hasMany(CreditCard::class);
     }
-
+ public function  transactions(){
+        return $this->hasMany(Transactions::class);
+ }
     public function user(){
         return $this->hasMany(User::class);
     }

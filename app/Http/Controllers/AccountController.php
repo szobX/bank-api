@@ -128,5 +128,7 @@ class AccountController extends Controller
     public function destroy(Account $account)
     {
         //
+        $account->delete();
+        return response(['message' => 'Account has been delete']);
     }
 }

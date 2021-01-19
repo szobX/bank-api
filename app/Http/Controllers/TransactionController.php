@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\CreditCardResource;
+use App\Http\Resources\TransactionsResource;
 use App\Models\Account;
 use App\Models\CreditCard;
 use App\Models\Transactions;
@@ -11,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Validator;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class TransactionController extends Controller
 {
@@ -23,7 +25,7 @@ class TransactionController extends Controller
     {
         //
         $transactions = Transactions::all();
-        return response(['data'=>TransactionsResources::collection($transactions)],200);
+        return response(['data'=>TransactionsResource::collection($transactions)],200);
     }
 
 
@@ -80,19 +82,18 @@ class TransactionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\CreditCard  $creditCard
+     * @param  \App\Models\Transactions  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show(Transactions  $transaction)
     {
-//        $creditCard = CreditCard::findorFail($cardId);
-//        return response(['creditCard' => new CreditCardResource($creditCard), 'message' => 'Credit Cards finded'], 200);
+//   return response(['creditCard' => new TransactionsResource($transaction), 'message' => 'Transactions finded'], 200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\CreditCard  $creditCard
+     * @param  \App\Models\Transactions  $transaction
      * @return \Illuminate\Http\Response
      */
     public function showAll($id)
@@ -107,26 +108,37 @@ class TransactionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\CreditCard  $creditCard
+     * @param  \App\Models\Transactions  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CreditCard $creditCard)
+    public function update(Request $request,Transactions  $transaction)
     {
         //
-        $creditCard->update($request->all());
+        $transaction->update($request->all());
 
-        return response(['creditCards' => new CreditCardResource($creditCard), 'message' => 'Update successfully'], 200);
+        return response(['creditCards' => new CreditCardResource($transaction), 'message' => 'Update successfully'], 200);
 
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\CreditCard  $creditCard
+     * @param  \App\Models\Transactions  $transaction
      * @return \Illuminate\Http\Response
      */
     public function destroy(CreditCard $creditCard)
     {
         //
     }
+
+    public function showUserTransaction(Request $request,Account $account,$account_id){
+//            $account = Account::findOrFail($account_id);
+//        dd($request);
+        $transactions = Transactions::findForAccount($account_id);
+//        $query = QueryBuilder::for(Transactions::class)-
+
+//        dd($transactions);
+        return response(['data'=>TransactionsResource::collection($transactions)],200);
+    }
+
 }
