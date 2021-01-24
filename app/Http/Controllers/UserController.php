@@ -43,57 +43,49 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
         $aController = new AddressController();
         $data = $request->all();
-        $validator = Validator::make($data, [
-            'email' => 'required|email|unique',
-            'password' => 'required',
-            'first_name'=>'required|max:100',
-            'last_name'=>'require|max:100',
-            'phone'=>'required',
-            'sex'=>'required',
-        ]);
 
         $addressValidator = $aController->validator($data['address']);
 
-//        dd($addressValidator);
         if ($addressValidator->fails()) {
             return response(['error' => $addressValidator->errors()]);
         }
 
         $addressFromRequest = $data['address'];
-        unset($data["address"]);
-//        dd($data);
+//        unset($data["address"]);
         $validator = Validator::make($data, [
             'email' => 'required|unique:users',
-            'first_name'=>'required|max:100',
-            'last_name'=>'required|max:100',
+            'firstName'=>'required|max:100',
+            'lastName'=>'required|max:100',
             'phone'=>'required',
             'sex'=>'required',
             'birthday'=>'required'
         ]);
-//        dd($validator);
+
         if ($validator->fails()) {
             return response(['error' => $validator->errors(), 'Validation Error']);
         }
-//        dd($validator);
+
 
         $address = $aController->saveAddressFromUser($addressFromRequest);
-        $data['hash_password'] = Hash::make($data['password']);
-//        dd($address->id);
+
         $userObject = [
             'email'=>$data['email'],
-            'password'=>$data['hash_password'],
-            'first_name'=>$data['first_name'],
-            'last_name'=>$data['last_name'],
             'phone'=>$data['phone'],
             'birthday'=>$data['birthday'],
             'sex'=>$data['sex'],
+            'first_name'=>$data['firstName'],
+            'last_name'=>$data['lastName'],
             'address_id'=>$address->id];
-        $newUser =User::create($userObject);
 
-        return $newUser;
+        $userObject['password'] = Hash::make('test123');
+        $user = User::create($userObject);
+
+
+        return response(['user' => new UserResource($user)], 201);
+
     }
 
     /**
@@ -104,7 +96,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return response(new UserResource($user),200);
     }
 
     /**
@@ -139,7 +131,14 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $data = $request->all();
+
+//        $user->update($request->all);
+
+        $aController = new AddressController();
+        $addressFromRequest = $data['address'];
+        unset($data['address']);
+        return response([new UserResource(($user))]);
     }
 
     /**
@@ -151,5 +150,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+        $user->delete();
+        return response(['message' => 'User has been delete']);
     }
 }

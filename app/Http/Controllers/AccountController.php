@@ -27,22 +27,6 @@ class AccountController extends Controller
 //        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function create()
-    {
-        //
-//        $input = $request->all();
-//        $account = Account::create($input);
-//        return response()->json([
-//            "success"=>true,
-//            "message"=>"Account created",
-//            "data"=>$account
-//        ]);
-    }
 
     /**
      * Store a newly created resource in storage.

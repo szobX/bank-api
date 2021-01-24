@@ -61,18 +61,89 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
-###ROUTING
+## ROUTING
+
 ------------
-##### ACCOUNT
+# ACCOUNT
 
-| Routes | 	controller | method   |
-| ------------- | ------------------------------ |
-| `/accounts`      | Display all accounts    | `GET` |
-| `/accounts`   | Add account     |`POST`|
-| `/accounts`   | Edit account     |`PUT`|
-| `/accounts`   | Delete account     |`DELETE`|
-| `/accounts/{account_id}`   | Display account     |`GET`|
-| `/accounts/{account_id}/creditCards`   | Display cards for account     |`GET`|
-| `/accounts/{account_id}/creditCards`   | Add cards for account     |`POST`|
-| `/accounts/{account_id}/creditCards/{card_id}`   | Edit card for account     |`PUT`|
+----------------------------
 
+-  `/accounts`      -  Display all accounts    -  `GET` -  
+
+-  `/accounts`   -  Add account     - `POST`-    
+   
+        
+        bank_id Int 
+        account_name
+        
+        ** RESZTA GENEROWANE PO BACKENDZIE **
+        zwraca cały nowy obiekt konta     
+   
+-  `/accounts`   -  Edit account     - `PUT`
+
+
+-  `/accounts/{id}`   -  Delete account     - `DELETE`
+
+        id:id
+
+-  `/accounts/{account_id}`   -  Display account     - `GET` 
+
+           id: 
+           ** ZWRACA WYBRANE KONTO { TYLKO DLA ZALOGOWANEGO } **
+
+-  `/accounts/{account_id}/creditCards`   -  Display cards for account     - `GET`- 
+
+    
+     ** ZWRACA WSZYSTKIE KARTY KREDYTOWE USERA { TYLKO DLA ZALOGOWANEGO } **
+
+-  `/accounts/{account_id}/creditCards`   -  Add cards for account     - `POST`- 
+
+
+       type: MasterCard,Visa,etc...,
+       
+     ** TWORZY NOWĄ KARTE  { TYLKO DLA ZALOGOWANEGO } **
+ 
+
+-  `/accounts/{account_id}/creditCards/{card_id}`   -  delete card from account     - `DELETE`- 
+
+
+
+-  `/accounts/{account_id}/transactions`   -  Edit card for account     - `POST`- 
+
+      
+      filtry:
+      title,tranfer_type
+
+
+
+# BANK
+
+----------------------------
+
+-  `/banks`      -  Display all Banks    -  `GET` -      
+   
+
+   dodanie banku przez CLI:
+ ```$ php artisan bank {name} {identify 4 char}```
+
+
+
+
+
+
+
+# USER
+
+----------------------------
+-  `/login`      -  Login   -  `POST` -      
+
+
+    email
+    password
+    
+    return JWT token
+
+
+- `/register`    - Register - `POST` -
+
+-  `/auth/me`      -  fetch data for user by token    -  `GET` -      

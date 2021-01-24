@@ -134,7 +134,7 @@ class TransactionController extends Controller
     public function showUserTransaction(Request $request,Account $account,$account_id){
 //            $account = Account::findOrFail($account_id);
 //        dd($request);
-        $transactions = Transactions::findForAccount($account_id);
+        $transactions = Transactions::withFilters($account_id,$request);
 //        $query = QueryBuilder::for(Transactions::class)-
 
 //        dd($transactions);

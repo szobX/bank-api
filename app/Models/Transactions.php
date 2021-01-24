@@ -22,6 +22,25 @@ class Transactions extends Model
         return $this->belongsTo(Account::class,'to_account_id');
     }
 
+    public static function withFilters($id,$filters){
+        $query = Transactions::query();
+        if(isset($filters['transfer_type'])){
+            $query->where('transfer_type',$filters['transfer_type']);
+        }
+        if(isset($filters['title'])){
+            $value = '%'.$filters['title'].'%';
+            $query->where('title', 'like', $value);
+        }
+                if($id){
+                    $query->where(function($query)use($id){
+                        $query->where('from_account_id', $id)
+                            ->orWhere('to_account_id', $id);
+                    });
+                }
+//                dd($query->toSql());
+                return $query->get();
+
+    }
     public static function findForAccount($id){
         $transactions = Transactions::where('from_account_id',$id)->orWhere('to_account_id',$id)->get();
         return $transactions;
