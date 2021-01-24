@@ -13,7 +13,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(AddressSeeder::class);
          \App\Models\User::factory(10)->create();
-        $this->call([BankSeeder::class,AccountSeeder::class,CreditCardSeeder::class]);
+        $this->call([BankSeeder::class,AccountSeeder::class,CreditCardSeeder::class,TranastionSeeder::class]);
           }
 }
