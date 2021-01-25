@@ -16,11 +16,11 @@ class AccountResource extends JsonResource
     {
         return [
             'id'=>$this->id,
+            'account_name'=>$this->account_name,
             'account_number'=>$this->account_number,
             'user_id'=>$this->user_id,
             'bank'=>$this->bank,
             'credit_cards'=>$this->creditCards,
-
             'balance'=>$this->balance,
             'currency'=>'zł',
         ];

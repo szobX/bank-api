@@ -34,6 +34,7 @@ class UserResource extends JsonResource
             'addressId'=>$this->adress_id,
             'address'=>$this->address,
             'birthday'=>$this->birthday,
+            'accounts'=>  AccountResource::collection($this->accounts),
         ];
     }
 }

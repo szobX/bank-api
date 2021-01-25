@@ -92,11 +92,12 @@ $creditCardCreated =  CreditCard::create($row);
      * @param  \App\Models\CreditCard  $creditCard
      * @return \Illuminate\Http\Response
      */
-    public function showAll($id)
+    public function showAll($id, Request $request)
     {
-            $account = Account::findOrFail($id);
+            $creditCards = CreditCard::withFilters($id,$request);
+//            $account = Account::findOrFail($id);
 //            dd($account->creditCards);
-        return response(['creditCards' => CreditCardResource::collection($account->creditCards), 'message' => 'Credit Cards successfully'], 200);
+        return response(['data' => CreditCardResource::collection($creditCards)], 200);
 
     }
 

@@ -46,8 +46,42 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function accounts(){
+        return $this->hasMany(Account::class);
 
+    }
     public function address(){
         return $this->belongsTo(Address::class);
     }
+
+    public static function withFilters($filters){
+        $query = User::query();
+
+
+        if(isset($filters['sex'])){
+            $query->where('sex',$filters['sex']);
+        }
+        if(isset($filters['email'])){
+            $value = '%'.$filters['email'].'%';
+
+            $query->where('email','like',$value);
+        }
+        if(isset($filters['search'])){
+            $value = '%'.$filters['search'].'%';
+            $query->where(function($query)use($value){
+                $query->where('first_name', 'like' ,$value)
+                    ->orWhere('last_name', 'like' ,$value);
+            });
+
+        }
+        if(isset($filters['lastName'])){
+            $value = '%'.$filters['lastName'].'%';
+            $query->where('last_name', 'like', $value);
+        }
+
+//                dd($query->toSql());
+        return $query->get();
+
+    }
+
 }

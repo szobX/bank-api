@@ -93,12 +93,17 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 -  `/accounts/{account_id}/creditCards`   -  Display cards for account     - `GET`- 
 
+        
+        
+         filtry:
+              type,active 
     
      ** ZWRACA WSZYSTKIE KARTY KREDYTOWE USERA { TYLKO DLA ZALOGOWANEGO } **
 
 -  `/accounts/{account_id}/creditCards`   -  Add cards for account     - `POST`- 
 
-
+      
+     
        type: MasterCard,Visa,etc...,
        
      ** TWORZY NOWĄ KARTE  { TYLKO DLA ZALOGOWANEGO } **

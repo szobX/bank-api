@@ -32,4 +32,28 @@ class CreditCard extends Model
         return $sequence;
 
     }
+    public static function withFilters($id,$filters){
+        $query = CreditCard::query();
+        if(isset($filters['active'])){
+            $query->where('active',$filters['active']);
+        }
+
+        if(isset($filters['type'])){
+            $value = '%'.$filters['type'].'%';
+            $query->where('type', 'like', $value);
+        }
+        if(isset($filters['balance'])){
+            $value = $filters['balance'];
+            $query->where('balance', '>=', $value);
+        }
+        if($id){
+            $query->where(function($query)use($id){
+                $query->where('account_id', $id)
+                    ->orWhere('account_id', $id);
+            });
+        }
+//                dd($query->toSql());
+        return $query->get();
+
+    }
 }

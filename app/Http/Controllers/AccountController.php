@@ -16,9 +16,9 @@ class AccountController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $accounts = Account::all();
+        $accounts = Account::withFilters($request);
         return response(['data'=>AccountResource::collection($accounts)],200);
 //        return response()->json([
 //            "success"=>true,
@@ -71,13 +71,15 @@ class AccountController extends Controller
      */
     public function show(Account $account)
     {
-        $user = Auth::user()->id;
+//        $user = Auth::user()->id;
 
-        if($user != $account->user_id){
-            return response(['error'=>'unautorization'],401);
-        }else{
-            return response(new AccountResource($account),200);
-        }
+//        if($user != $account->user_id){
+//            return response(['error'=>'unautorization'],401);
+//        }else{
+//            return response(new AccountResource($account),200);
+//        }
+        return response(new AccountResource($account),200);
+
         // alternative method
 //        if (() !== null) {
 //            // Here you have your authenticated user model

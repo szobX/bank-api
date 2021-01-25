@@ -19,10 +19,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
-        return response(['data'=>UserResource::collection($users),'message'=>'Retrieved successfully'],200);
+        $users = User::withFilters($request);
+        return response(['data'=>UserResource::collection($users)],200);
     }
 
     /**

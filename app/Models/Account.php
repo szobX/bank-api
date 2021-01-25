@@ -12,7 +12,7 @@ class Account extends Model
     use HasFactory;
 
 
-    protected $fillable = ['account_number','user_id','bank_id','date_opened','balance'];
+    protected $fillable = ['account_number','account_name','user_id','bank_id','date_opened','balance'];
     public  function  bank()
     {
         return $this->belongsTo(Bank::class);
@@ -54,6 +54,33 @@ class Account extends Model
             }
         }
         return $sequence;
+
+    }
+
+    public static function withFilters($id,$filters){
+        $query = Account::query();
+        if(isset($filters['user_id'])){
+            $query->where('user_id',$filters['user_id']);
+        }
+        if(isset($filters['bank_id'])){
+            $query->where('bank_id',$filters['bank_id']);
+        }
+        if(isset($filters['account_name'])){
+            $value = '%'.$filters['account_name'].'%';
+            $query->where('account_name', 'like', $value);
+        }
+        if(isset($filters['balance'])){
+            $value = $filters['balance'];
+            $query->where('balance', '>=', $value);
+        }
+//        if($id){
+//            $query->where(function($query)use($id){
+//                $query->where('from_account_id', $id)
+//                    ->orWhere('to_account_id', $id);
+//            });
+//        }
+//                dd($query->toSql());
+        return $query->get();
 
     }
 }
