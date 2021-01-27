@@ -18,7 +18,7 @@ class AccountController extends Controller
      */
     public function index(Request $request)
     {
-        $accounts = Account::withFilters($request);
+        $accounts = Account::withFilters(null,$request);
         return response(['data'=>AccountResource::collection($accounts)],200);
 //        return response()->json([
 //            "success"=>true,

@@ -21,10 +21,10 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $transactions = Transactions::all();
+        $transactions = Transactions::withFilters(null,$request);
         return response(['data'=>TransactionsResource::collection($transactions)],200);
     }
 
