@@ -66,6 +66,7 @@ class RegisterController extends Controller
         $validatedData['password'] = Hash::make($request->password);
 
         $user = User::create($userObject);
+        $user->markEmailAsVerified();
         $accessToken = $user->createToken('authToken')->accessToken;
 
         return response(['user' => new UserResource($user), 'access_token' => $accessToken], 201);
