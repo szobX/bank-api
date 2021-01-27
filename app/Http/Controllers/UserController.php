@@ -112,17 +112,6 @@ class UserController extends Controller
 
     }
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -134,10 +123,30 @@ class UserController extends Controller
         $data = $request->all();
 
 //        $user->update($request->all);
-
         $aController = new AddressController();
+
+        $addressValidator = $aController->validator($data['address']);
+
+//        dd($addressValidator);
+        if ($addressValidator->fails()) {
+            return response(['error' => $addressValidator->errors()]);
+        }
         $addressFromRequest = $data['address'];
         unset($data['address']);
+        $validator = Validator::make($data, [
+            'first_name'=>'required|max:100',
+            'last_name'=>'required|max:100',
+            'phone'=>'required',
+            'sex'=>'required',
+            'birthday'=>'required'
+        ]);
+        unset($data['email']);
+        if ($validator->fails()) {
+            return response(['error' => $validator->errors(), 'Validation Error']);
+        }
+
+        $user->update($data);
+        $aController->update($addressFromRequest,$user->address_id);
         return response([new UserResource(($user))]);
     }
 

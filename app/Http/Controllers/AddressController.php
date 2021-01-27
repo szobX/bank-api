@@ -82,9 +82,13 @@ public function  validator($obj){
      * @param  \App\Models\Address  $address
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Address $address)
+    public function update($data, $address_id)
     {
         //
+        $address = Address::find($address_id);
+          $address->update($data);
+
+
     }
 
     /**
