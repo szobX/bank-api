@@ -107,8 +107,8 @@ class UserController extends Controller
      */
     public function me()
     {
-        $users = Auth::user();
-        return response(new UserResource($users));
+        $user= Auth::user();
+        return response(new UserResource($user));
 
     }
     /**

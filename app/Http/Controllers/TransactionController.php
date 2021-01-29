@@ -35,11 +35,13 @@ class TransactionController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
-     */
+     */ 
     public function store(Request $request)
     {
-        $data = $request->all();
         $user_id = Auth::user()->id;
+
+        $data = $request->all();
+
         $fromAccount = Account::findOrFail($data['from_account_id']);
         $toAccount = Account::findOrFail($data['to_account_id']);
 
@@ -47,7 +49,12 @@ class TransactionController extends Controller
         $currentToAccount = $fromAccount->setCurrentBalance($data['to_account_id'],$data['amount'],0);
 
         $validator = Validator::make($data, [
-            'type' => 'required',
+            'transfer_type'=>'min:0|max:1|',
+            'from_account_id'=>'required',
+            'amount'=>'required|numeric',
+            'title'=>'required|max:100',
+            'transfer_date'=>'required',
+            'to_account_id'=>'required',
         ]);
 
             $fromRow =   [
@@ -71,11 +78,7 @@ class TransactionController extends Controller
             ];
         $transferFromAccount =  Transactions::create($fromRow);
         $transferFromAccount =  Transactions::create($toRow);
-
-//        $dd($transferFromAccount);
-// wykonanie dwóch zapytań w zaloeżności od  typu przelewu
-
-//        return response(['creditCard' => new CreditCardResource($creditCardCreated), 'message' => 'Created successfully'], 201);
+        return response(['message'=>'transaction crated'],201);
 
     }
 
