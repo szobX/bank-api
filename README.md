@@ -8,6 +8,8 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 aby uruchomić projekt należy:
 
+
+1. utworzyć oraz podmienić w pliku .env( jeśli nie ma to skopiować z .env.example) hosta, nazwe bazy danych, użytkownika oraz hasło
 1. zainstalować paczki composera  ```composer install```
 2. utworzyć migrację bazy danych 
      - jeśli chcemy uruchomić bez danych testowych używamy ```php artisan mirage```
@@ -109,3 +111,5 @@ aby uruchomić projekt należy:
 - `/register`    - Register - `POST` -
 
 -  `/auth/me`      -  fetch data for user by token    -  `GET` -      
+
+
