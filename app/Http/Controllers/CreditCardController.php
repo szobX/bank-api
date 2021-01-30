@@ -126,5 +126,8 @@ $creditCardCreated =  CreditCard::create($row);
     public function destroy(CreditCard $creditCard)
     {
         //
+        //
+        $creditCard->delete();
+        return response(['message' => 'Credit Card   has been delete']);
     }
 }
