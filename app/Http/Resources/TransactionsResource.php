@@ -28,6 +28,9 @@ class TransactionsResource extends JsonResource
             "to_account"=>$this->toAccount->account_number,
             "from_account_id"=>$this->from_account_id,
             "to_account_id"=>$this->to_account_id,
+            "form_bank"=>$this->fromAccount->bank,
+            "to_bank"=>$this->toAccount->bank,
+
         ];
     }
 }

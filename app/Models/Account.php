@@ -27,6 +27,7 @@ class Account extends Model
     public function user(){
         return $this->hasMany(User::class);
     }
+//    USTAWIANIE BALANSU PO TWORZONEJ TRANSAKCJI
     public function setCurrentBalance($id,$amount,$type){
         $account = Account::find($id);
         $currentBalance = 0;
@@ -40,6 +41,7 @@ class Account extends Model
         $account->save();
         return $currentBalance;
     }
+//    GENEROWANIE NUMERU KONTA UWZGLĘDNIAJĄC IDENTIFIKATOR BANKU
     public  function generateNumber($id){
         $fill = '####-####-####-###-#';
 
@@ -73,13 +75,7 @@ class Account extends Model
             $value = $filters['balance'];
             $query->where('balance', '>=', $value);
         }
-//        if($id){
-//            $query->where(function($query)use($id){
-//                $query->where('from_account_id', $id)
-//                    ->orWhere('to_account_id', $id);
-//            });
-//        }
-//                dd($query->toSql());
+
         return $query->get();
 
     }
